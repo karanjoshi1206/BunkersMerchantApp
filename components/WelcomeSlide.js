@@ -12,7 +12,6 @@ import { LinearGradient } from "expo-linear-gradient";
 const windowWidth = Dimensions.get("screen").width;
 const windowHeight = Dimensions.get("screen").height;
 const WelcomeSlide = ({ elem }) => {
-	console.log("first", elem.item);
 	const imageUri = Image.resolveAssetSource(elem.item.imageLink).uri;
 
 	return (

@@ -23,12 +23,13 @@ const SignUp = ({ navigation }) => {
 		const phoneProvider = new firebase.auth.PhoneAuthProvider();
 		phoneProvider
 			.verifyPhoneNumber(`+91${number}`, recaptchaVerifier.current)
-			.then((e) =>
+			.then((e) => {
+				console.log("e", e);
 				navigation.navigate("OTP Verification", {
 					phoneNumber: number,
 					verificationId: e,
-				})
-			)
+				});
+			})
 
 			.catch((e) => console.log("error ", verificationId));
 	};
