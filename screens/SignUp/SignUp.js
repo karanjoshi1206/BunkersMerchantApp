@@ -6,14 +6,32 @@ import {
 	TextInput,
 	View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Logo from "../../assets/logo.png";
 import AppButton from "../../components/AppButton";
-const windowWidth = Dimensions.get("screen").width;
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import { firebaseConfig } from "../../config";
+import firebase from "firebase/compat/app";
+import { width } from "../../utils/CONSTANTS";
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
 	const [number, setNumber] = useState("");
 	const [disabled, setDisabled] = useState(true);
+	const [verificationId, setVerificationId] = useState(null);
+	const recaptchaVerifier = useRef(null);
+	const sendVerification = () => {
+		const phoneProvider = new firebase.auth.PhoneAuthProvider();
+		phoneProvider
+			.verifyPhoneNumber(`+91${number}`, recaptchaVerifier.current)
+			.then((e) =>
+				navigation.navigate("OTP Verification", {
+					phoneNumber: number,
+					verificationId: e,
+				})
+			)
+
+			.catch((e) => console.log("error ", verificationId));
+	};
 
 	return (
 		<View
@@ -21,6 +39,10 @@ const SignUp = () => {
 				padding: 15,
 				flex: 1,
 			}}>
+			<FirebaseRecaptchaVerifierModal
+				ref={recaptchaVerifier}
+				firebaseConfig={firebaseConfig}
+			/>
 			<View
 				style={{
 					marginTop: 100,
@@ -67,7 +89,11 @@ const SignUp = () => {
 				/>
 			</View>
 			<View style={{ marginTop: 20 }}>
-				<AppButton disabled={disabled}>Send OTP</AppButton>
+				<AppButton
+					onPress={() => sendVerification(number, recaptchaVerifier)}
+					disabled={disabled}>
+					Send OTP
+				</AppButton>
 			</View>
 			<View
 				style={{
@@ -81,7 +107,7 @@ const SignUp = () => {
 						height: 2,
 						backgroundColor: "lightgrey",
 
-						width: windowWidth - 230,
+						width: width - 230,
 					}}></View>
 				<Text
 					style={{
@@ -95,7 +121,7 @@ const SignUp = () => {
 						height: 2,
 						backgroundColor: "lightgrey",
 
-						width: windowWidth - 230,
+						width: width - 230,
 					}}></View>
 			</View>
 			<View style={{ marginTop: 20 }}>

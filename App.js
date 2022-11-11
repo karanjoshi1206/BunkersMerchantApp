@@ -6,6 +6,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Welcome from "./screens/Welcome/Welcome";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import OtpVerification from "./screens/OtpVerification/OtpVerification";
+import Orders from "./screens/Orders/Orders";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -27,6 +29,24 @@ export default function App() {
 						}}
 						name='SignUp'
 						component={SignUp}
+					/>
+					<Stack.Screen
+						options={
+							{
+								// headerShown: false,
+							}
+						}
+						name='OTP Verification'
+						component={OtpVerification}
+					/>
+					<Stack.Screen
+						options={
+							{
+								// headerShown: false,
+							}
+						}
+						name='Orders'
+						component={Orders}
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>
