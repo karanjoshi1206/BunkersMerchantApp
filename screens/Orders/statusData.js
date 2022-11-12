@@ -16,3 +16,5 @@ const statusData = [
 		statusTitle: "Completed",
 	},
 ];
+
+export default statusData;

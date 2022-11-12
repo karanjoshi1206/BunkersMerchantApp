@@ -53,48 +53,55 @@ const OrderCard = ({ order }) => {
 					</View>
 				</View>
 			))}
-
-			{order?.paymentReceived ? (
-				<SuccessDiv>
-					<Text
-						style={{
-							color: "white",
-							textAlign: "center",
-						}}>
-						PAYMENT RECEIVED{" "}
-					</Text>
-					<Text
-						style={{
-							color: "white",
-							textAlign: "center",
-							fontSize: 18,
-							textTransform: "uppercase",
-						}}>
-						Do not accept cash{" "}
-					</Text>
-				</SuccessDiv>
-			) : (
-				<View>
-					<Text
-						style={{
-							color: "white",
-							textAlign: "center",
-							fontSize: 18,
-							textTransform: "uppercase",
-						}}>
-						Payment not RECEIVED
-					</Text>
-					<Text
-						style={{
-							color: "white",
-							textAlign: "center",
-							fontSize: 18,
-							textTransform: "uppercase",
-						}}>
-						Please accept cash{" "}
-					</Text>
-				</View>
-			)}
+			<View
+				style={{
+					position: "absolute",
+					bottom: 10,
+					right: 10,
+					left: 10,
+				}}>
+				{order?.paymentReceived ? (
+					<SuccessDiv>
+						<Text
+							style={{
+								color: "white",
+								textAlign: "center",
+							}}>
+							PAYMENT RECEIVED{" "}
+						</Text>
+						<Text
+							style={{
+								color: "white",
+								textAlign: "center",
+								fontSize: 18,
+								textTransform: "uppercase",
+							}}>
+							Do not accept cash{" "}
+						</Text>
+					</SuccessDiv>
+				) : (
+					<View>
+						<Text
+							style={{
+								color: "white",
+								textAlign: "center",
+								fontSize: 18,
+								textTransform: "uppercase",
+							}}>
+							Payment not RECEIVED
+						</Text>
+						<Text
+							style={{
+								color: "white",
+								textAlign: "center",
+								fontSize: 18,
+								textTransform: "uppercase",
+							}}>
+							Please accept cash{" "}
+						</Text>
+					</View>
+				)}
+			</View>
 		</View>
 	);
 };
@@ -106,13 +113,13 @@ const styles = StyleSheet.create({
 		marginVertical: 4,
 		padding: 10,
 		paddingVertical: 16,
-		marginHorizontal: 10,
+		// marginHorizontal: 10,
 		borderRadius: 10,
 		borderWidth: 2,
 		borderTopWidth: 10,
 		paddingBottom: 8,
 		borderColor: primaryColor,
-		minHeight: 250,
+		minHeight: 270,
 	},
 	cardTitle: {
 		fontWeight: "500",
