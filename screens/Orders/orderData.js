@@ -52,6 +52,35 @@ const data = [
 		paymentReceived: true,
 		orderStatus: 1,
 	},
+
+	{
+		id: 4,
+		orderId: "12334ss555",
+		orderItems: [
+			{
+				name: "Maggie",
+				Qty: 2,
+				size: "Half",
+			},
+		],
+		orderBy: "Karan Joshi",
+		paymentReceived: true,
+		orderStatus: 2,
+	},
+	{
+		id: 5,
+		orderId: "12334ss555",
+		orderItems: [
+			{
+				name: "Maggie",
+				Qty: 2,
+				size: "Half",
+			},
+		],
+		orderBy: "Karan Joshi",
+		paymentReceived: true,
+		orderStatus: 3,
+	},
 ];
 
 export default data;
