@@ -1,10 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import data from "./orderData";
+import OrderCard from "../../components/OrderCard";
 
 const Orders = () => {
 	return (
-		<View>
-			<Text>Orders</Text>
+		<View
+			style={{
+				paddingBottom: 20,
+			}}>
+			<FlatList
+				data={data}
+				renderItem={({ item }) => <OrderCard order={item} />}
+			/>
 		</View>
 	);
 };
