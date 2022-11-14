@@ -45,7 +45,7 @@ const OtpVerification = ({ route, navigation }) => {
 				.auth()
 				.signInWithCredential(credential)
 				.then(() => {
-					storeData;
+					storeData();
 				})
 				.catch((e) => alert(e));
 		}
@@ -54,7 +54,8 @@ const OtpVerification = ({ route, navigation }) => {
 	const storeData = async () => {
 		try {
 			await AsyncStorage.setItem("loggedIn", "true");
-			navigation.navigate("Orders");
+			navigation.navigate("Merchant");
+			console.log("runssss");
 		} catch (e) {
 			console.log("local storage error at OTP verification sceen--==>> ", e);
 		}
