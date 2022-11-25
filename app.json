@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.joshikaran392.BunkersMerchantApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"

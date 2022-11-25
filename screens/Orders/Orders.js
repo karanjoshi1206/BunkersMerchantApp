@@ -7,12 +7,18 @@ import {
 	View,
 } from "react-native";
 import React, { useState } from "react";
-import data from "./orderData";
-import OrderCard from "../../components/OrderCard";
-import statusData from "./statusData";
+
+//CONSTANTS
 import { brown, green, orange } from "../../utils/CONSTANTS";
 
-const Orders = () => {
+//DUMMY DATA
+import data from "./orderData";
+import statusData from "./statusData";
+
+//COMPONENTS
+import OrderCard from "../../components/OrderCard";
+
+const Orders = ({ navigation }) => {
 	const [activeStatus, setActiveStatus] = useState(1);
 
 	const tempData = data.filter((elem) => elem.orderStatus == activeStatus);
@@ -20,7 +26,7 @@ const Orders = () => {
 	return (
 		<View
 			style={{
-				paddingBottom: 90,
+				paddingBottom: 120,
 				paddingHorizontal: 10,
 			}}>
 			<View
@@ -28,8 +34,9 @@ const Orders = () => {
 					flexDirection: "row",
 					marginVertical: 10,
 				}}>
-				{statusData.map((elem) => (
+				{statusData.map((elem, idx) => (
 					<TouchableOpacity
+						key={idx}
 						onPress={() => setActiveStatus(elem.statusId)}
 						style={{
 							...styles.statusTag,
@@ -67,7 +74,9 @@ const Orders = () => {
 			</View>
 			<FlatList
 				data={tempData}
-				renderItem={({ item }) => <OrderCard order={item} />}
+				renderItem={({ item }) => (
+					<OrderCard navigation={navigation} order={item} />
+				)}
 			/>
 		</View>
 	);

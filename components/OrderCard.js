@@ -1,13 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import StatusButton from "./StatusButton";
 import { green, primaryColor, secondaryColor } from "../utils/CONSTANTS";
 import SuccessDiv from "./SuccessDiv";
 
-const OrderCard = ({ order }) => {
-	console.log("order is ", order);
+const OrderCard = ({ order, navigation }) => {
 	return (
-		<View style={styles.orderCard} key={order.id}>
+		<TouchableOpacity
+			onPress={() =>
+				navigation.navigate("Order Details", {
+					order: order,
+				})
+			}
+			style={styles.orderCard}
+			key={order.id}>
 			<View
 				style={{
 					...styles.flexDiv,
@@ -102,7 +108,7 @@ const OrderCard = ({ order }) => {
 					</View>
 				)}
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 };
 

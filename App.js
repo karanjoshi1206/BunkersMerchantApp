@@ -10,23 +10,31 @@ import Welcome from "./screens/Welcome/Welcome";
 import Orders from "./screens/Orders/Orders";
 import Loading from "./screens/Loading/Loading";
 import OtpVerification from "./screens/OtpVerification/OtpVerification";
+import Insights from "./screens/Insights/Insights";
+import Menu from "./screens/Menu/Menu";
+import OrderDetails from "./screens/OrderDetails/OrderDetails";
+import Logout from "./screens/Logout/Logout";
 
 //NAVIGATION IMPORTS
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Logout from "./screens/Logout/Logout";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Tabs from "./navigation/TabNavigation";
 
-//stack navigation create
+//All navigation create
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
-const DrawerScreens = () => {
+const TabScreens = () => {
 	return (
-		<Drawer.Navigator>
-			<Drawer.Screen name='Orders' component={Orders} />
-			<Drawer.Screen name='Logout' component={Logout} />
-		</Drawer.Navigator>
+		// <Drawer.Navigator>
+		// 	<Drawer.Screen name='Orders' component={Orders} />
+		// 	<Drawer.Screen name='Logout' component={Logout} />
+		// </Drawer.Navigator>
+
+		<Tabs />
 	);
 };
 
@@ -69,7 +77,7 @@ function App() {
 			<NavigationContainer>
 				{loggedIn ? (
 					<>
-						<DrawerScreens />
+						{/* <DrawerScreens /> */}
 						<Stack.Navigator>
 							<Stack.Screen
 								options={{
@@ -90,6 +98,18 @@ function App() {
 								name='OTP Verification'
 								component={OtpVerification}
 							/>
+							{/* <Stack.Group> */}
+							<Stack.Screen
+								options={{ headerShown: false }}
+								name='Merchant'
+								component={TabScreens}
+							/>
+							<Stack.Screen
+								// options={{ headerShown: false }}
+								name='Order Details'
+								component={OrderDetails}
+							/>
+							{/* </Stack.Group> */}
 						</Stack.Navigator>
 					</>
 				) : (
@@ -117,8 +137,9 @@ function App() {
 							<Stack.Screen
 								options={{ headerShown: false }}
 								name='Merchant'
-								component={DrawerScreens}
+								component={TabScreens}
 							/>
+							{/* <DrawerScreens /> */}
 						</Stack.Navigator>
 					</>
 				)}
