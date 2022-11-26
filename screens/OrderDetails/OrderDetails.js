@@ -11,6 +11,8 @@ const OrderDetails = ({ route, navigation }) => {
 	return (
 		<View>
 			<Text>{order.id}</Text>
+			<Text>{order.orderBy}</Text>
+			<Text>{order.orderId}</Text>
 		</View>
 	);
 };

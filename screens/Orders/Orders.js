@@ -6,7 +6,7 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //CONSTANTS
 import { brown, green, orange } from "../../utils/CONSTANTS";
@@ -19,9 +19,14 @@ import statusData from "./statusData";
 import OrderCard from "../../components/OrderCard";
 
 const Orders = ({ navigation }) => {
-	const [activeStatus, setActiveStatus] = useState(1);
+	const [activeStatus, setActiveStatus] = useState(0);
+	const [orders, setOrders] = useState([]);
 
-	const tempData = data.filter((elem) => elem.orderStatus == activeStatus);
+	useEffect(() => {
+		setOrders(data);
+	}, [activeStatus]);
+
+	const tempData = orders.filter((elem) => elem.orderStatus == activeStatus);
 
 	return (
 		<View
@@ -29,11 +34,12 @@ const Orders = ({ navigation }) => {
 				paddingBottom: 120,
 				paddingHorizontal: 10,
 			}}>
-			<View
+			<ScrollView
+				showsHorizontalScrollIndicator={false}
 				style={{
-					flexDirection: "row",
-					marginVertical: 10,
-				}}>
+					paddingVertical: 5,
+				}}
+				horizontal={true}>
 				{statusData.map((elem, idx) => (
 					<TouchableOpacity
 						key={idx}
@@ -42,13 +48,7 @@ const Orders = ({ navigation }) => {
 							...styles.statusTag,
 							borderColor:
 								activeStatus == elem.statusId
-									? elem.statusId == 1
-										? brown
-										: elem.statusId == 2
-										? orange
-										: elem.statusId == 3
-										? green
-										: green
+									? elem.backgroundColor
 									: "lightgrey",
 						}}>
 						<Text
@@ -56,22 +56,18 @@ const Orders = ({ navigation }) => {
 								fontSize: 15,
 								color: brown,
 								fontWeight: "500",
+								paddingTop: 5,
+								height: 35,
 								color:
 									activeStatus == elem.statusId
-										? elem.statusId == 1
-											? brown
-											: elem.statusId == 2
-											? orange
-											: elem.statusId == 3
-											? green
-											: green
+										? elem.backgroundColor
 										: "darkgrey",
 							}}>
 							{elem.statusTitle}
 						</Text>
 					</TouchableOpacity>
 				))}
-			</View>
+			</ScrollView>
 			<FlatList
 				data={tempData}
 				renderItem={({ item }) => (
@@ -89,8 +85,8 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 		borderWidth: 2,
 		padding: 10,
-		paddingVertical: 5,
 		borderRadius: 5,
 		borderColor: brown,
+		paddingVertical: 0,
 	},
 });

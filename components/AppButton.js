@@ -6,6 +6,9 @@ const AppButton = ({
 	solid = false,
 	disabled = false,
 	onPress = () => {},
+	danger = false,
+	fullWidth = false,
+	width = "50%",
 }) => {
 	return (
 		<TouchableOpacity
@@ -13,17 +16,30 @@ const AppButton = ({
 			disabled={disabled}
 			style={{
 				...styles.button,
+				width: fullWidth ? "100%" : width,
 				backgroundColor: disabled
 					? "lightgrey"
 					: solid
 					? "#256FEF"
 					: "transparent",
-				borderColor: disabled ? "lightgrey" : solid ? "transparent" : "#256FEF",
+				borderColor: disabled
+					? "lightgrey"
+					: solid
+					? "transparent"
+					: danger
+					? "crimson"
+					: "#256FEF",
 			}}>
 			<Text
 				style={{
 					...styles.buttonText,
-					color: disabled ? "white" : solid ? "white" : "#256FEF",
+					color: disabled
+						? "white"
+						: solid
+						? "white"
+						: danger
+						? "crimson"
+						: "#256FEF",
 				}}>
 				{children}
 			</Text>
@@ -41,7 +57,7 @@ const styles = StyleSheet.create({
 		borderColor: "white",
 		borderWidth: 1,
 		marginBottom: 10,
-		width: "100%",
+		// width:  "100%",
 	},
 	buttonText: {
 		textAlign: "center",

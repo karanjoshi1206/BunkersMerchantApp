@@ -21,6 +21,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Tabs from "./navigation/TabNavigation";
+import HelpScreen from "./screens/HelpScreen/HelpScreen";
 
 //All navigation create
 const Stack = createNativeStackNavigator();
@@ -138,6 +139,16 @@ function App() {
 								options={{ headerShown: false }}
 								name='Merchant'
 								component={TabScreens}
+							/>
+							<Stack.Screen
+								// options={{ headerShown: false }}
+								name='Order Details'
+								component={OrderDetails}
+							/>
+							<Stack.Screen
+								// options={{ headerShown: false }}
+								name='Help'
+								component={HelpScreen}
 							/>
 							{/* <DrawerScreens /> */}
 						</Stack.Navigator>

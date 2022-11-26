@@ -91,6 +91,7 @@ const SignUp = ({ navigation }) => {
 			</View>
 			<View style={{ marginTop: 20 }}>
 				<AppButton
+					fullWidth={true}
 					onPress={() => {
 						if (number == 8532055221) navigation.navigate("Merchant");
 						else sendVerification(number, recaptchaVerifier);
@@ -129,7 +130,7 @@ const SignUp = ({ navigation }) => {
 					}}></View>
 			</View>
 			<View style={{ marginTop: 20 }}>
-				<AppButton>Login With Email</AppButton>
+				<AppButton fullWidth={true}>Login With Email</AppButton>
 			</View>
 		</View>
 	);

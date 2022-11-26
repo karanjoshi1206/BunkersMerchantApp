@@ -7,7 +7,8 @@ const StatusButton = ({ status = 0 }) => {
 		<View
 			style={{
 				backgroundColor: BACKGROUND_COLOR(status),
-				maxWidth: 100,
+
+				minWidth: 100,
 				borderRadius: 5,
 				padding: 5,
 			}}>
@@ -27,6 +28,8 @@ export default StatusButton;
 const styles = StyleSheet.create({});
 const BACKGROUND_COLOR = (status) => {
 	switch (status) {
+		case 0:
+			return brown;
 		case 1:
 			return brown;
 		case 2:
@@ -41,6 +44,8 @@ const BACKGROUND_COLOR = (status) => {
 };
 const STATUS_TEXT = (status) => {
 	switch (status) {
+		case 0:
+			return "New Order";
 		case 1:
 			return "Pending";
 		case 2:
