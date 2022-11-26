@@ -150,6 +150,7 @@ function App() {
 								name='Help'
 								component={HelpScreen}
 							/>
+							<Stack.Screen name='Logout' component={Logout} />
 							{/* <DrawerScreens /> */}
 						</Stack.Navigator>
 					</>
