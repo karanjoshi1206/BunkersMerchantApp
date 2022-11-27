@@ -78,7 +78,7 @@ const CustomDrawer = ({ props, navigation }) => {
 					value={isEnabled}
 					style={{
 						// backgroundColor: "red",
-						marginLeft: 0,
+						marginLeft: 10,
 						padding: 0,
 						height: 30,
 						width: 30,
@@ -86,7 +86,7 @@ const CustomDrawer = ({ props, navigation }) => {
 				/>
 				<Text
 					style={{
-						marginLeft: 10,
+						marginLeft: 0,
 						fontWeight: "bold",
 						color: "grey",
 					}}>
