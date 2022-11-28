@@ -4,10 +4,12 @@ const data = [
 		itemName: "Maggie",
 		portions: [
 			{
+				id: 1,
 				portionName: "Half",
 				portionPrice: 20,
 			},
 			{
+				id: 2,
 				portionName: "Full",
 				portionPrice: 40,
 			},
@@ -19,10 +21,12 @@ const data = [
 		itemName: "Noodles",
 		portions: [
 			{
+				id: 1,
 				portionName: "Half",
 				portionPrice: 20,
 			},
 			{
+				id: 2,
 				portionName: "Full",
 				portionPrice: 40,
 			},
@@ -34,10 +38,12 @@ const data = [
 		itemName: "Bread Omlette",
 		portions: [
 			{
+				id: 1,
 				portionName: "Single",
 				portionPrice: 20,
 			},
 			{
+				id: 2,
 				portionName: "Double",
 				portionPrice: 40,
 			},

@@ -1,8 +1,18 @@
-import { StyleSheet, Text, View, Switch } from "react-native";
+import {
+	StyleSheet,
+	Text,
+	View,
+	Switch,
+	TouchableOpacity,
+	Alert,
+} from "react-native";
 import React, { useState } from "react";
-import { primaryColor, secondaryColor } from "../utils/CONSTANTS";
+import { primaryColor, red, secondaryColor } from "../utils/CONSTANTS";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import MenuItem from "../screens/Menu/MenuItem";
 
 const MenuCard = ({ menu, refresh, setRefresh }) => {
+	const [modalVisible, setModalVisible] = useState(false);
 	const [inStock, setInStock] = useState(menu?.availableOnStock ? true : false);
 	const toggleSwitch = () => {
 		setInStock((previousState) => !previousState);
@@ -68,7 +78,76 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 					</View>
 				);
 			})}
-			<Text></Text>
+
+			<View style={{ ...styles.flex, marginBottom: 0, marginTop: 10 }}>
+				<TouchableOpacity
+					onPress={() => {
+						setModalVisible(true);
+						// setPortionEditMode(true);
+						// setPortionId(elem.id);
+						// toggle();
+					}}
+					style={{
+						borderColor: primaryColor,
+						...styles.buttons,
+					}}>
+					<MaterialCommunityIcons
+						name='circle-edit-outline'
+						size={16}
+						color={primaryColor}
+					/>
+					<Text
+						style={{
+							color: primaryColor,
+							...styles.buttonText,
+						}}>
+						Edit
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => {
+						Alert.alert(
+							//title
+							"Are You Sure?",
+							//body
+							"The selected Menu Item will be deleted forever",
+							[
+								{
+									text: "Yes",
+									onPress: () => {
+										// const newPortion = portions.filter(
+										// 	(portion) => portion !== elem
+										// );
+										// setPortions(newPortion);
+									},
+								},
+								{
+									text: "No",
+									onPress: () => console.log("No Pressed"),
+									style: "cancel",
+								},
+							],
+							{ cancelable: true }
+						);
+					}}
+					style={{
+						borderColor: red,
+						...styles.buttons,
+					}}>
+					<MaterialCommunityIcons name='delete-outline' size={16} color={red} />
+					<Text
+						style={{
+							color: red,
+							...styles.buttonText,
+						}}>
+						Delete
+					</Text>
+				</TouchableOpacity>
+			</View>
+
+			{modalVisible && (
+				<MenuItem setModalVisible={setModalVisible} mode='edit' data={menu} />
+			)}
 		</View>
 	);
 };
@@ -96,5 +175,20 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		justifyContent: "space-between",
 		// alignItems: "center",
+	},
+	buttons: {
+		padding: 8,
+		borderWidth: 1,
+		paddingHorizontal: 15,
+		borderRadius: 7,
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	buttonText: {
+		fontSize: 14,
+		fontWeight: "600",
+
+		marginLeft: 5,
 	},
 });

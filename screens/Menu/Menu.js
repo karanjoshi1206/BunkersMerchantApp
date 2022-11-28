@@ -12,7 +12,7 @@ import MenuCard from "../../components/MenuCard";
 import FloatingButton from "../../components/FloatingButton";
 import ModalComponent from "../../components/ModalComponent";
 import InputField from "../../components/InputField";
-import AddMenuItem from "./AddMenuItem";
+import MenuItem from "./MenuItem";
 const Menu = () => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [menuData, setMenuData] = useState([]);
@@ -36,7 +36,7 @@ const Menu = () => {
 				position: "relative",
 			}}>
 			{modalVisible && (
-				<AddMenuItem
+				<MenuItem
 					modalVisible={modalVisible}
 					setModalVisible={setModalVisible}
 				/>

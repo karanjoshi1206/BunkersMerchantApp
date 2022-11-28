@@ -22,10 +22,15 @@ import { BottomSheet } from "react-native-btr";
 //ICONS
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const AddMenuItem = ({ modalVisible, setModalVisible }) => {
+const MenuItem = ({
+	modalVisible,
+	setModalVisible,
+	mode = "add",
+	data = {},
+}) => {
 	//states
-	const [itemName, setItemName] = useState("");
-	const [portions, setPortions] = useState([]);
+	const [itemName, setItemName] = useState(mode == "add" ? "" : data.itemName);
+	const [portions, setPortions] = useState(mode == "add" ? [] : data.portions);
 	const [selectedPortion, setSelectedPortion] = useState("");
 	const [visible, setVisible] = useState(false);
 	const [portionEditMode, setPortionEditMode] = useState(false);
@@ -40,7 +45,7 @@ const AddMenuItem = ({ modalVisible, setModalVisible }) => {
 	return (
 		<ModalComponent
 			setModalVisible={setModalVisible}
-			modalTitle={"Add Menu Item"}>
+			modalTitle={mode == "add" ? "Add Menu Item" : "Edit Menu Item"}>
 			{/* INPUT FIELD FOR ITEM NAME */}
 			<InputField
 				label='Item Name'
@@ -76,7 +81,9 @@ const AddMenuItem = ({ modalVisible, setModalVisible }) => {
 								<TouchableOpacity
 									onPress={() => {
 										setPortionEditMode(true);
-										setPortionId(elem.id);
+										// setPortionId(elem.id);
+										setSelectedPortion(elem.portionName);
+										setSelectedPortionPrice(elem.portionPrice);
 
 										toggle();
 									}}
@@ -213,7 +220,10 @@ const AddMenuItem = ({ modalVisible, setModalVisible }) => {
 							<AppButton
 								onPress={() => {
 									const newPortion = portions.map((elem) => {
-										if (elem.id == portionId) {
+										if (
+											elem.portionName == selectedPortion &&
+											elem.portionPrice == selectedPortionPrice
+										) {
 											return {
 												...elem,
 												portionName: selectedPortion,
@@ -265,7 +275,7 @@ const AddMenuItem = ({ modalVisible, setModalVisible }) => {
 	);
 };
 
-export default AddMenuItem;
+export default MenuItem;
 
 const styles = StyleSheet.create({
 	card: {
