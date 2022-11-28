@@ -82,6 +82,7 @@ const ToastCard = ({ customerNumber, navigation }) => {
 			<TouchableOpacity
 				onPress={(e) => {
 					e.stopPropagation();
+					navigation.navigate("Order Bill");
 				}}
 				style={styles.toastCardContent}>
 				<AntDesign name='printer' size={20} color='black' />

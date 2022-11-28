@@ -1,5 +1,5 @@
 //REACT NATIVE/EXPO IMPORTS
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -22,6 +22,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Tabs from "./navigation/TabNavigation";
 import HelpScreen from "./screens/HelpScreen/HelpScreen";
+import OrderBill from "./screens/OrderBill/OrderBill";
 
 //All navigation create
 const Stack = createNativeStackNavigator();
@@ -72,7 +73,7 @@ function App() {
 	}
 
 	return (
-		<>
+		<SafeAreaView style={styles.container}>
 			<StatusBar style='auto' />
 
 			<NavigationContainer>
@@ -150,6 +151,11 @@ function App() {
 								name='Help'
 								component={HelpScreen}
 							/>
+							<Stack.Screen
+								// options={{ headerShown: false }}
+								name='Order Bill'
+								component={OrderBill}
+							/>
 							<Stack.Screen name='Logout' component={Logout} />
 							{/* <DrawerScreens /> */}
 						</Stack.Navigator>
@@ -157,7 +163,7 @@ function App() {
 				)}
 			</NavigationContainer>
 			{/* )} */}
-		</>
+		</SafeAreaView>
 	);
 }
 
@@ -167,8 +173,8 @@ const styles = StyleSheet.create({
 		// backgroundColor: "#fff",
 		// alignItems: "center",
 		// justifyContent: "center",
-		position: "relative",
-		paddingBottom: 20,
+		// position: "relative",
+		// paddingBottom: 20,
 	},
 });
 

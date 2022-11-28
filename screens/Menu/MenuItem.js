@@ -3,6 +3,7 @@ import {
 	ScrollView,
 	StyleSheet,
 	Text,
+	ToastAndroid,
 	TouchableOpacity,
 	View,
 } from "react-native";
@@ -119,6 +120,11 @@ const MenuItem = ({
 															(portion) => portion !== elem
 														);
 														setPortions(newPortion);
+
+														ToastAndroid.show(
+															"Successfully Deleted",
+															ToastAndroid.SHORT
+														);
 													},
 												},
 												{
@@ -232,6 +238,7 @@ const MenuItem = ({
 										}
 										return elem;
 									});
+									ToastAndroid.show("Successfully Edited", ToastAndroid.SHORT);
 
 									setPortions(newPortion);
 									setVisible(false);
@@ -251,6 +258,7 @@ const MenuItem = ({
 
 									setPortions([...portions, newPortion]);
 									setVisible(false);
+									ToastAndroid.show("Portion Added", ToastAndroid.SHORT);
 								}}
 								solid={true}>
 								Done

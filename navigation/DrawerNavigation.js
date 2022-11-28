@@ -17,11 +17,13 @@ import {
 	TouchableOpacity,
 	Switch,
 	Pressable,
+	ToastAndroid,
 } from "react-native";
 import { primaryColor, secondaryColor } from "../utils/CONSTANTS";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { DrawerActions } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
 
@@ -61,6 +63,11 @@ const CustomDrawer = ({ props, navigation }) => {
 			<Pressable
 				onPress={() => {
 					toggleSwitch();
+
+					ToastAndroid.show(
+						`Canteen ${!isEnabled ? "Closed" : "Opened"} `,
+						ToastAndroid.SHORT
+					);
 				}}
 				style={{
 					padding: 20,
