@@ -9,6 +9,7 @@ const AppButton = ({
 	danger = false,
 	fullWidth = false,
 	width = "50%",
+	borderRadius = true,
 }) => {
 	return (
 		<TouchableOpacity
@@ -16,6 +17,7 @@ const AppButton = ({
 			disabled={disabled}
 			style={{
 				...styles.button,
+				borderRadius: borderRadius ? 10 : 0,
 				width: fullWidth ? "100%" : width,
 				backgroundColor: disabled
 					? "lightgrey"
@@ -57,6 +59,8 @@ const styles = StyleSheet.create({
 		borderColor: "white",
 		borderWidth: 1,
 		marginBottom: 10,
+		justifyContent: "center",
+		alignItems: "center",
 		// width:  "100%",
 	},
 	buttonText: {

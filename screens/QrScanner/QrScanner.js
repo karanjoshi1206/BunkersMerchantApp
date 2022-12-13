@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { height, width } from "../../utils/CONSTANTS";
+import { height, primaryColor, width } from "../../utils/CONSTANTS";
 import AppButton from "../../components/AppButton";
+import Loading from "../Loading/Loading";
 
 const QrScanner = ({ navigation }) => {
 	const [hasPermission, setHasPermission] = useState(null);
@@ -30,39 +31,32 @@ const QrScanner = ({ navigation }) => {
 	};
 
 	if (hasPermission === null) {
-		return <Text>Requesting for camera permission</Text>;
+		return <Loading />;
 	}
 	if (hasPermission === false) {
 		return <Text>No access to camera</Text>;
 	}
 
 	return (
-		<View
-			style={{
-				padding: 20,
-			}}>
-			<Text
+		<>
+			{/* <View
 				style={{
-					textAlign: "center",
-					fontSize: 18,
-					marginVertical: 10,
-					fontWeight: "400",
-				}}>
-				Scan QR to get ORDER details
-			</Text>
-
-			<View
-				style={{
-					marginTop: -180,
-					borderRadius: 10,
-					marginBottom: 20,
+					justifyContent: "center",
+					alignItems: "center",
+					height: 350,
+					width: 350,
+					overflow: "hidden",
+					backgroundColor: "red",
+					position: "relative",
 				}}>
 				<BarCodeScanner
 					onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
 					style={{
-						height: 400,
-						marginTop: 200,
-						borderRadius: 10,
+						height: 350,
+						width: "120%",
+						position: "absolute",
+						right: 0,
+						left: -20,
 					}}
 				/>
 			</View>
@@ -70,11 +64,71 @@ const QrScanner = ({ navigation }) => {
 				<AppButton onPress={() => setScanned(false)} fullWidth={true}>
 					Tap to Scan Again
 				</AppButton>
-			)}
-		</View>
+			)} */}
+
+			<BarCodeScanner
+				onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+				style={[StyleSheet.absoluteFill, styles.container]}>
+				<View style={styles.layerTop} />
+				<View style={styles.layerCenter}>
+					<View style={styles.layerLeft} />
+					<View style={styles.focused} />
+					<View style={styles.layerRight} />
+				</View>
+				<View style={styles.layerBottom} />
+			</BarCodeScanner>
+			<View
+				style={{
+					position: "absolute",
+					bottom: 50,
+					right: 0,
+					left: 0,
+				}}>
+				{scanned && (
+					<AppButton
+						borderRadius={false}
+						solid={true}
+						onPress={() => setScanned(false)}
+						fullWidth={true}>
+						Tap to Scan Again
+					</AppButton>
+				)}
+			</View>
+		</>
 	);
 };
 
 export default QrScanner;
 
-const styles = StyleSheet.create({});
+const opacity = "rgba(0, 0, 0, .6)";
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		flexDirection: "column",
+		// position: "absolute",
+		marginBottom: 100,
+	},
+	layerTop: {
+		flex: 2,
+		backgroundColor: opacity,
+	},
+	layerCenter: {
+		flex: 3,
+		flexDirection: "row",
+	},
+	layerLeft: {
+		flex: 1,
+		backgroundColor: opacity,
+	},
+	focused: {
+		flex: 10,
+	},
+	layerRight: {
+		flex: 1,
+		backgroundColor: opacity,
+	},
+	layerBottom: {
+		flex: 2,
+		backgroundColor: opacity,
+	},
+});

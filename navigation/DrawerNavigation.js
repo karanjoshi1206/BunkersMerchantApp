@@ -160,6 +160,7 @@ const DrawerNavigator = ({ navigation }) => (
 				drawerIcon: ({ color }) => (
 					<AntDesign name='qrcode' size={22} color={color} />
 				),
+				// headerShown: false,
 			}}
 		/>
 	</Drawer.Navigator>

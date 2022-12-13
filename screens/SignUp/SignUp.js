@@ -31,7 +31,7 @@ const SignUp = ({ navigation }) => {
 				});
 			})
 
-			.catch((e) => console.log("error ", verificationId));
+			.catch((e) => console.log("error ", e));
 	};
 
 	return (

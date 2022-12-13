@@ -13,9 +13,11 @@ import AppButton from "../../components/AppButton";
 
 //LIBRARIES
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LottieView from "lottie-react-native";
 
 const OtpVerification = ({ route, navigation }) => {
 	const { phoneNumber, verificationId } = route.params;
+	const [loading, setLoading] = useState(false);
 	const [pin1, setPin1] = useState("");
 	const [pin2, setPin2] = useState("");
 	const [pin3, setPin3] = useState("");
@@ -33,6 +35,7 @@ const OtpVerification = ({ route, navigation }) => {
 	}, []);
 
 	const confirmCode = () => {
+		setLoading(true);
 		const code = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
 		if (code == 123456) {
 			storeData();
@@ -46,8 +49,12 @@ const OtpVerification = ({ route, navigation }) => {
 				.signInWithCredential(credential)
 				.then(() => {
 					storeData();
+					setLoading(false);
 				})
-				.catch((e) => alert(e));
+				.catch((e) => {
+					alert(e);
+					setLoading(false);
+				});
 		}
 	};
 
@@ -60,6 +67,7 @@ const OtpVerification = ({ route, navigation }) => {
 			console.log("local storage error at OTP verification sceen--==>> ", e);
 		}
 	};
+
 	return (
 		<View
 			style={{
@@ -67,7 +75,7 @@ const OtpVerification = ({ route, navigation }) => {
 				alignItems: "center",
 				minHeight: height - 100,
 			}}>
-			<ParagraphText>OTP was sent to {phoneNumber}</ParagraphText>
+			<ParagraphText>OTP was sent to {phoneNumber} </ParagraphText>
 
 			<View
 				style={{
@@ -165,8 +173,30 @@ const OtpVerification = ({ route, navigation }) => {
 					flexDirection: "column",
 					width: "100%",
 					paddingHorizontal: 30,
+					justifyContent: "center",
+					alignItems: "center",
 				}}>
-				<AppButton onPress={() => confirmCode()}>Confirm</AppButton>
+				{loading ? (
+					<LottieView
+						autoPlay
+						// ref={animation}
+						style={{
+							width: 100,
+							height: 100,
+							justifyContent: "center",
+							alignContent: "center",
+							alignItems: "center",
+						}}
+						source={require("../../assets/loader.json")}
+					/>
+				) : (
+					<AppButton
+						loading={loading}
+						fullWidth={true}
+						onPress={() => confirmCode()}>
+						Confirm
+					</AppButton>
+				)}
 			</View>
 		</View>
 	);

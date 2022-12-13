@@ -3,6 +3,9 @@ import React from "react";
 import { height, primaryColor } from "../../utils/CONSTANTS";
 import SuccessDiv from "../../components/SuccessDiv";
 import AppButton from "../../components/AppButton";
+import { printToFileAsync } from "expo-print";
+import * as MediaLibrary from "expo-media-library";
+import { shareAsync } from "expo-sharing";
 
 const OrderBill = () => {
 	const sampleBill = {
@@ -32,6 +35,140 @@ const OrderBill = () => {
 		paymentId: "4231839",
 		paymentTime: "24 oct 2022",
 	};
+
+	const htmlContent = `<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<title>Bill Details</title>
+			<style>
+				* {
+					margin: 0;
+					padding: 0;
+				}
+				body {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					width: 100%;
+					min-height: 60vh;
+					font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+					margin:20px
+				}
+				.bill {
+					padding: 30px;
+					min-width: 500px;
+					border: 2px solid green;
+					border-radius: 4px;
+					/* background-color: red; */
+				}
+				.billTitle {
+					display: flex;
+					justify-content: space-between;
+				}
+				.items {
+					margin: 10px 0;
+					padding: 10px;
+					box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+				}
+				.item {
+					display: flex;
+					justify-content: space-between;
+					margin: 15px 0;
+					align-items: center;
+				}
+				.billButton {
+					padding: 20px;
+					text-align: center;
+					background-color: #3ab757;
+					color: white;
+					border-radius: 4px;
+				}
+			</style>
+		</head>
+		<body>
+			<div class="bill">
+				<div class="billTitle">
+					<div class="billTitle_left">
+						<p>Order Id:</p>
+						<h3>#12345</h3>
+					</div>
+					<div class="billTitle_right">
+						<p>Order By:</p>
+						<h3>Karan Joshi</h3>
+					</div>
+				</div>
+				<div class="billBody">
+					<div class="items">
+						<div class="item">
+							<div class="itemName">
+								<h4>Maggie</h4>
+								<p>Half</p>
+							</div>
+							<div class="itemPrice">₹ 20</div>
+						</div>
+						<div class="item">
+							<div class="itemName">
+								<h4>Maggie</h4>
+								<p>Half</p>
+							</div>
+							<div class="itemPrice">₹ 20</div>
+						</div>
+					</div>
+					<div class="items">
+						<div class="item">
+							<h4>Total Amount:</h4>
+							<h2>₹ 50</h2>
+						</div>
+					</div>
+	
+					<div class="billButton">
+						<h5>Payment received</h5>
+						<h2>Do not accept cash</h2>
+					</div>
+					<div class="item">
+						<h4>Payment Method</h4>
+						<p>gPay</p>
+					</div>
+					<div class="item">
+						<h4>Payment ID</h4>
+						<p>2726182</p>
+					</div>
+					<div class="item">
+						<h4>Payment Time</h4>
+						<p>24 oct 2022</p>
+					</div>
+				</div>
+			</div>
+		</body>
+	</html>
+	`;
+
+	const generatePdf = async () => {
+		const file = await printToFileAsync({
+			html: htmlContent,
+			base64: false,
+		});
+		await shareAsync(file.uri);
+	};
+	// const createAndSavePDF = async () => {
+	// 	try {
+	// 		const { uri } = await Print.printToFileAsync({ htmlContent });
+	// 		if (Platform.OS === "ios") {
+	// 			await Sharing.shareAsync(uri);
+	// 		} else {
+	// 			const permission = await MediaLibrary.requestPermissionsAsync();
+	// 			if (permission.granted) {
+	// 				await MediaLibrary.createAssetAsync(uri);
+	// 			}
+	// 		}
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
 	return (
 		<View style={styles.OrderBill}>
 			<View
@@ -145,7 +282,9 @@ const OrderBill = () => {
 					)}
 				</View>
 			</View>
-			<AppButton fullWidth={true}>Download Bill</AppButton>
+			<AppButton onPress={() => generatePdf()} fullWidth={true}>
+				Download Bill
+			</AppButton>
 		</View>
 	);
 };
