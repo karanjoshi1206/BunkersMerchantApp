@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { primaryColor, red, secondaryColor } from "../utils/CONSTANTS";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MenuItem from "../screens/Menu/MenuItem";
+// import Constants from "expo-constants";
 
 const MenuCard = ({ menu, refresh, setRefresh }) => {
 	const [modalVisible, setModalVisible] = useState(false);
@@ -19,11 +20,16 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 		setRefresh((previousState) => !previousState);
 	};
 	return (
+		// <NeuMorphismView
+		// 	borderless={true}
+		// 	style={{
+		// 		marginBottom: 10,
+		// 	}}>
 		<View
 			style={{
 				...styles.menuCard,
-				borderBottomColor: inStock ? primaryColor : "red",
-				borderBottomWidth: 10,
+				borderColor: inStock ? "lightgreen" : "red",
+				borderBottomWidth: 5,
 			}}
 			key={menu.id}>
 			<View
@@ -149,6 +155,7 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 				<MenuItem setModalVisible={setModalVisible} mode='edit' data={menu} />
 			)}
 		</View>
+		// </NeuMorphismView>
 	);
 };
 

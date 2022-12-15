@@ -28,8 +28,14 @@ import { DrawerActions } from "@react-navigation/native";
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = ({ props, navigation }) => {
-	const [isEnabled, setIsEnabled] = useState(false);
-	const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+	const [isCanteenOpen, setIsCanteenOpen] = useState(false);
+	const toggleSwitch = () => {
+		setIsCanteenOpen((previousState) => !previousState);
+		ToastAndroid.show(
+			`Canteen ${!isCanteenOpen ? "Closed" : "Opened"} `,
+			ToastAndroid.SHORT
+		);
+	};
 	return (
 		<View
 			style={{
@@ -63,11 +69,6 @@ const CustomDrawer = ({ props, navigation }) => {
 			<Pressable
 				onPress={() => {
 					toggleSwitch();
-
-					ToastAndroid.show(
-						`Canteen ${!isEnabled ? "Closed" : "Opened"} `,
-						ToastAndroid.SHORT
-					);
 				}}
 				style={{
 					padding: 20,
@@ -79,10 +80,10 @@ const CustomDrawer = ({ props, navigation }) => {
 				}}>
 				<Switch
 					trackColor={{ false: "#767577", true: "#81b0ff" }}
-					thumbColor={isEnabled ? primaryColor : "#f4f3f4"}
+					thumbColor={isCanteenOpen ? primaryColor : "#f4f3f4"}
 					ios_backgroundColor='#3e3e3e'
 					onValueChange={toggleSwitch}
-					value={isEnabled}
+					value={isCanteenOpen}
 					style={{
 						// backgroundColor: "red",
 						marginLeft: 10,

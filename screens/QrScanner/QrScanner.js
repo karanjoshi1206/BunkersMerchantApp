@@ -39,33 +39,6 @@ const QrScanner = ({ navigation }) => {
 
 	return (
 		<>
-			{/* <View
-				style={{
-					justifyContent: "center",
-					alignItems: "center",
-					height: 350,
-					width: 350,
-					overflow: "hidden",
-					backgroundColor: "red",
-					position: "relative",
-				}}>
-				<BarCodeScanner
-					onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-					style={{
-						height: 350,
-						width: "120%",
-						position: "absolute",
-						right: 0,
-						left: -20,
-					}}
-				/>
-			</View>
-			{scanned && (
-				<AppButton onPress={() => setScanned(false)} fullWidth={true}>
-					Tap to Scan Again
-				</AppButton>
-			)} */}
-
 			<BarCodeScanner
 				onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
 				style={[StyleSheet.absoluteFill, styles.container]}>

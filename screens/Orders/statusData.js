@@ -22,11 +22,6 @@ const statusData = [
 		statusTitle: "Completed",
 		backgroundColor: green,
 	},
-	{
-		statusId: 2,
-		statusTitle: "Cancelled",
-		backgroundColor: red,
-	},
 ];
 
 export default statusData;

@@ -34,6 +34,7 @@ const Menu = () => {
 				padding: 10,
 				paddingBottom: 60,
 				position: "relative",
+				backgroundColor: "white",
 			}}>
 			{modalVisible && (
 				<MenuItem

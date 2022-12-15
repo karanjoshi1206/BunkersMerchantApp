@@ -14,7 +14,7 @@ import { firebaseConfig } from "../../config";
 import firebase from "firebase/compat/app";
 import { width } from "../../utils/CONSTANTS";
 
-const SignUp = ({ navigation }) => {
+const Login = ({ navigation }) => {
 	const [number, setNumber] = useState("");
 	const [disabled, setDisabled] = useState(true);
 	const [verificationId, setVerificationId] = useState(null);
@@ -93,8 +93,9 @@ const SignUp = ({ navigation }) => {
 				<AppButton
 					fullWidth={true}
 					onPress={() => {
-						if (number == 8532055221) navigation.navigate("Merchant");
-						else sendVerification(number, recaptchaVerifier);
+						// if (number == 8532055221) navigation.navigate("Merchant");
+						// else
+						sendVerification(number, recaptchaVerifier);
 					}}
 					disabled={disabled}>
 					Send OTP
@@ -130,12 +131,16 @@ const SignUp = ({ navigation }) => {
 					}}></View>
 			</View>
 			<View style={{ marginTop: 20 }}>
-				<AppButton fullWidth={true}>Login With Email</AppButton>
+				<AppButton
+					onPress={() => navigation.navigate("Login With Email")}
+					fullWidth={true}>
+					Login With Email
+				</AppButton>
 			</View>
 		</View>
 	);
 };
 
-export default SignUp;
+export default Login;
 
 const styles = StyleSheet.create({});

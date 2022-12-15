@@ -67,11 +67,15 @@ const Welcome = ({ navigation }) => {
 				}}>
 				<AppButton
 					fullWidth={true}
-					onPress={() => navigation.navigate("SignUp")}
+					onPress={() => navigation.navigate("Login")}
 					solid={true}>
 					Login
 				</AppButton>
-				<AppButton fullWidth={true}>Sign up</AppButton>
+				<AppButton
+					onPress={() => navigation.navigate("SignUp")}
+					fullWidth={true}>
+					Sign up
+				</AppButton>
 			</View>
 		</View>
 	);

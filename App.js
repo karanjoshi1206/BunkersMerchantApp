@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //SCREENS
-import SignUp from "./screens/SignUp/SignUp";
+import Login from "./screens/Login/Login";
 import Welcome from "./screens/Welcome/Welcome";
 import Orders from "./screens/Orders/Orders";
 import Loading from "./screens/Loading/Loading";
@@ -14,6 +14,9 @@ import Insights from "./screens/Insights/Insights";
 import Menu from "./screens/Menu/Menu";
 import OrderDetails from "./screens/OrderDetails/OrderDetails";
 import Logout from "./screens/Logout/Logout";
+import HelpScreen from "./screens/HelpScreen/HelpScreen";
+import OrderBill from "./screens/OrderBill/OrderBill";
+import LoginWithEmail from "./screens/LoginWithEmail/LoginWithEmail";
 
 //NAVIGATION IMPORTS
 import { NavigationContainer } from "@react-navigation/native";
@@ -21,8 +24,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Tabs from "./navigation/TabNavigation";
-import HelpScreen from "./screens/HelpScreen/HelpScreen";
-import OrderBill from "./screens/OrderBill/OrderBill";
+import SignUp from "./screens/SignUpScreen/SignUp";
 
 //All navigation create
 const Stack = createNativeStackNavigator();
@@ -92,6 +94,14 @@ function App() {
 								options={{
 									headerShown: false,
 								}}
+								name='Login'
+								component={Login}
+							/>
+							<Stack.Screen
+								options={{
+									// headerShown: false,
+									headerTitle: "Sign Up",
+								}}
 								name='SignUp'
 								component={SignUp}
 							/>
@@ -128,8 +138,24 @@ function App() {
 								options={{
 									headerShown: false,
 								}}
+								name='Login'
+								component={Login}
+							/>
+							<Stack.Screen
+								options={{
+									headerTitle: "Sign Up",
+								}}
 								name='SignUp'
 								component={SignUp}
+							/>
+							<Stack.Screen
+								options={
+									{
+										// headerShown: false,
+									}
+								}
+								name='Login With Email'
+								component={LoginWithEmail}
 							/>
 							<Stack.Screen
 								options={{}}
