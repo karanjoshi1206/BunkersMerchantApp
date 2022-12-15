@@ -24,6 +24,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { DrawerActions } from "@react-navigation/native";
+import NewOrderScreen from "../screens/NewOrderScreen/NewOrderScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -139,10 +140,12 @@ const DrawerNavigator = ({ navigation }) => (
 		<Drawer.Screen
 			name='Orders'
 			component={Orders}
+			// component={NewOrderScreen}
 			options={{
 				drawerIcon: ({ color }) => (
 					<Ionicons name='fast-food-outline' size={22} color={color} />
 				),
+				headerShown: false,
 			}}
 		/>
 		{/* <Drawer.Screen

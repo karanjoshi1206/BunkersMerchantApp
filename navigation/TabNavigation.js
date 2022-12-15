@@ -15,6 +15,8 @@ const Tab = createBottomTabNavigator();
 
 //CONSTANTS
 import { primaryColor, secondaryColor } from "../utils/CONSTANTS";
+import Orders from "../screens/Orders/Orders";
+import NewOrderScreen from "../screens/NewOrderScreen/NewOrderScreen";
 
 const Tabs = () => {
 	return (
@@ -86,7 +88,7 @@ const Tabs = () => {
 			/>
 			<Tab.Screen
 				name='Insights'
-				component={Insights}
+				component={NewOrderScreen}
 				options={{
 					tabBarIcon: ({ focused }) => (
 						<View

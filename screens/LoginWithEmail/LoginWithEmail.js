@@ -59,20 +59,6 @@ const LoginWithEmail = ({ navigation }) => {
 			}}>
 			<View
 				style={{
-					marginTop: 100,
-					alignItems: "center",
-				}}>
-				<Image
-					source={Logo}
-					style={{
-						height: 200,
-						width: 200,
-						resizeMode: "cover",
-					}}
-				/>
-			</View>
-			<View
-				style={{
 					marginTop: 50,
 					alignItems: "center",
 				}}>

@@ -17,6 +17,7 @@ import statusData from "./statusData";
 
 //COMPONENTS
 import OrderCard from "../../components/OrderCard";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Orders = ({ navigation }) => {
 	const [activeStatus, setActiveStatus] = useState(0);
@@ -29,7 +30,7 @@ const Orders = ({ navigation }) => {
 	const tempData = orders.filter((elem) => elem.orderStatus == activeStatus);
 
 	return (
-		<View
+		<SafeAreaView
 			style={{
 				paddingBottom: 120,
 				paddingHorizontal: 10,
@@ -74,7 +75,7 @@ const Orders = ({ navigation }) => {
 					<OrderCard navigation={navigation} order={item} />
 				)}
 			/>
-		</View>
+		</SafeAreaView>
 	);
 };
 

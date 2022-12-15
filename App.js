@@ -98,6 +98,15 @@ function App() {
 								component={Login}
 							/>
 							<Stack.Screen
+								options={
+									{
+										// headerShown: false,
+									}
+								}
+								name='Login With Email'
+								component={LoginWithEmail}
+							/>
+							<Stack.Screen
 								options={{
 									// headerShown: false,
 									headerTitle: "Sign Up",
