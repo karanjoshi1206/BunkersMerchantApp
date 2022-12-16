@@ -7,14 +7,17 @@ import {
 	TextInput,
 } from "react-native";
 // import { TextInput } from "react-native-paper";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { height, primaryColor, secondaryColor } from "../../utils/CONSTANTS";
 import Logo from "../../assets/logo.png";
 import AppButton from "../../components/AppButton";
 import MerchantLogin from "../../api/merchantLogin";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UserContext } from "../../context/userContext";
 
 const LoginWithEmail = ({ navigation }) => {
+	const { dispatch } = useContext(UserContext);
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [disabled, setDisabled] = useState(true);
@@ -43,7 +46,9 @@ const LoginWithEmail = ({ navigation }) => {
 	const storeData = async () => {
 		try {
 			await AsyncStorage.setItem("loggedIn", "true");
-			navigation.navigate("Merchant");
+			dispatch({ type: "isLoggedIn", payload: true });
+
+			// navigation.navigate("Merchant");
 		} catch (e) {
 			console.log("local storage error at Login with email screen--==>> ", e);
 		}
@@ -80,7 +85,6 @@ const LoginWithEmail = ({ navigation }) => {
 						setDisabled(false);
 					}
 				}}
-				keyboardType='number-pad'
 				style={{
 					borderColor: "lightgrey",
 					padding: 10,

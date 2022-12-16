@@ -1,13 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import { StyleSheet, Text, ToastAndroid, View } from "react-native";
+import React, { useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../Loading/Loading";
+import { UserContext } from "../../context/userContext";
 
 const Logout = ({ navigation }) => {
+	const { dispatch } = useContext(UserContext);
+
 	const logout = () => {
 		AsyncStorage.clear()
-			.then(() => navigation.navigate("Welcome"))
-			.catch(() => alert("Something went wrong"));
+			.then(() => {
+				// navigation.navigate("Welcome")
+				dispatch({ type: "isLoggedIn", payload: false });
+			})
+
+			.catch((e) => alert("Something went wrong", e));
 	};
 
 	useEffect(() => {

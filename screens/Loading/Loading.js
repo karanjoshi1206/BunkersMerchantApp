@@ -17,8 +17,8 @@ const Loading = () => {
 				autoPlay
 				// ref={animation}
 				style={{
-					width: 200,
-					height: 200,
+					width: 50,
+					height: 50,
 				}}
 				source={require("../../assets/loader.json")}
 			/>

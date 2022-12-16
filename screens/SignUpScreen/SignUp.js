@@ -132,7 +132,7 @@ const SignUp = ({ navigation }) => {
 				/>
 			</View>
 			<View style={styles.inputViewStyle}>
-				<Text style={styles.labelStyle}>Enter your P assword</Text>
+				<Text style={styles.labelStyle}>Enter your Password</Text>
 
 				<TextInput
 					value={password}

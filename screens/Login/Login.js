@@ -93,8 +93,9 @@ const Login = ({ navigation }) => {
 				<AppButton
 					fullWidth={true}
 					onPress={() => {
-						if (number == 8532055221) navigation.navigate("Merchant");
-						else sendVerification(number, recaptchaVerifier);
+						// if (number == 8532055221) navigation.navigate("Merchant");
+						// else
+						sendVerification(number, recaptchaVerifier);
 					}}
 					disabled={disabled}>
 					Send OTP

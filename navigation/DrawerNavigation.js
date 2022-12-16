@@ -145,7 +145,7 @@ const DrawerNavigator = ({ navigation }) => (
 				drawerIcon: ({ color }) => (
 					<Ionicons name='fast-food-outline' size={22} color={color} />
 				),
-				headerShown: false,
+				// headerShown: false,
 			}}
 		/>
 		{/* <Drawer.Screen
