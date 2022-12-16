@@ -98,13 +98,14 @@ const ToastCard = ({ customerNumber, navigation }) => {
 };
 
 const OrderCard = ({ order, navigation }) => {
+	console.log("order is ", order);
 	const [showToast, setShowToast] = useState(false);
 	const [timeTaken, setTimeTaken] = useState(10);
 	return (
 		<Pressable
 			onPress={() => setShowToast(false)}
 			style={styles.orderCard}
-			key={order.id}>
+			key={order._id}>
 			<View
 				style={{
 					...styles.flexDiv,
@@ -117,8 +118,22 @@ const OrderCard = ({ order, navigation }) => {
 					style={{
 						maxWidth: 200,
 					}}>
-					<Text style={styles.cardTitle}>ID:{order.orderId} </Text>
-					<StatusButton status={order.orderStatus} />
+					<Text
+						style={{
+							...styles.cardTitle,
+							alignItems: "center",
+							justifyContent: "center",
+						}}>
+						ID:
+						<Text
+							style={{
+								fontSize: 12,
+								fontWeight: "normal",
+							}}>
+							{order._id}
+						</Text>
+					</Text>
+					<StatusButton status={order.status} />
 				</View>
 				<View
 					style={{
@@ -153,7 +168,7 @@ const OrderCard = ({ order, navigation }) => {
 					)}
 				</View>
 			</View>
-			{order?.orderItems?.map((elem) => (
+			{order?.items?.map((elem) => (
 				<View
 					style={{
 						borderBottomColor: "lightgrey",
@@ -161,10 +176,10 @@ const OrderCard = ({ order, navigation }) => {
 						marginBottom: 10,
 						zIndex: -1,
 					}}
-					key={elem.name}>
+					key={elem._id}>
 					<View style={{ ...styles.flexDiv, marginBottom: 5 }}>
 						<View style={styles.flexDiv}>
-							<Text style={styles.cardTitle}>{elem.Qty} x </Text>
+							<Text style={styles.cardTitle}>{elem.quantity} x </Text>
 							<Text style={styles.cardTitle}>
 								{elem.name}{" "}
 								<Text
@@ -235,7 +250,7 @@ const OrderCard = ({ order, navigation }) => {
 					</View>
 				)}
 			</View>
-			{order.orderStatus == 0 && (
+			{order.status == 0 && (
 				<>
 					<View
 						style={{

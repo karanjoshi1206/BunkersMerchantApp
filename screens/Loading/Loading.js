@@ -11,7 +11,8 @@ const Loading = () => {
 			style={{
 				justifyContent: "center",
 				alignItems: "center",
-				minHeight: height,
+				minHeight: height - 40,
+				backgroundColor: "white",
 			}}>
 			<LottieView
 				autoPlay

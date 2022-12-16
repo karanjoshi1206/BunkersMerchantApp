@@ -139,13 +139,13 @@ const DrawerNavigator = ({ navigation }) => (
 		)}>
 		<Drawer.Screen
 			name='Orders'
-			component={Orders}
-			// component={NewOrderScreen}
+			// component={Orders}
+			component={NewOrderScreen}
 			options={{
 				drawerIcon: ({ color }) => (
 					<Ionicons name='fast-food-outline' size={22} color={color} />
 				),
-				// headerShown: false,
+				headerShown: false,
 			}}
 		/>
 		{/* <Drawer.Screen
@@ -171,3 +171,4 @@ const DrawerNavigator = ({ navigation }) => (
 );
 
 export default DrawerNavigator;
+export { Drawer };

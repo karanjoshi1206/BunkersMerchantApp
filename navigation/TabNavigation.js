@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 //SCREENS IMPORTS
 import Insights from "../screens/Insights/Insights";
@@ -9,7 +9,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
 //NAVIGATION IMPORTS
-import DrawerNavigator from "./DrawerNavigation";
+import DrawerNavigator, { Drawer } from "./DrawerNavigation";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,7 @@ import { primaryColor, secondaryColor } from "../utils/CONSTANTS";
 import Orders from "../screens/Orders/Orders";
 import NewOrderScreen from "../screens/NewOrderScreen/NewOrderScreen";
 
-const Tabs = () => {
+const Tabs = ({ navigation }) => {
 	return (
 		<Tab.Navigator
 			screenOptions={{
@@ -88,10 +88,11 @@ const Tabs = () => {
 			/>
 			<Tab.Screen
 				name='Insights'
-				component={NewOrderScreen}
+				component={Insights}
 				options={{
 					tabBarIcon: ({ focused }) => (
 						<View
+							// onPress={() => navigation.openDrawer()}
 							style={{
 								alignItems: "center",
 							}}>
@@ -108,6 +109,7 @@ const Tabs = () => {
 							</Text>
 						</View>
 					),
+					// headerShown: false,
 				}}
 			/>
 		</Tab.Navigator>

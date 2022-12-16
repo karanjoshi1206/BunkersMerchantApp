@@ -1,54 +1,43 @@
-import {
-	StyleSheet,
-	Text,
-	View,
-	useWindowDimensions,
-	Animated,
-	TouchableOpacity,
-} from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import React, { useState } from "react";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
-import { primaryColor } from "../../utils/CONSTANTS";
+import { primaryColor, secondaryColor, width } from "../../utils/CONSTANTS";
+import NewOrder from "../../components/OrdersCategoryScreens/NewOrder";
 
 const headerBg = "#282f3f";
-const activeBg = "#384153";
-const normalBg = "#434e64";
-const activeText = "#ffffff";
-const normalText = "#222222";
 
-const FirstRoute = () => (
-	<View style={styles.content}>
-		<Text style={styles.contentText}>First</Text>
-	</View>
-);
-const SecondRoute = () => (
+// const NewOrder = () => (
+// 	<View style={styles.content}>
+// 		<Text style={styles.contentText}>First</Text>
+// 	</View>
+// );
+const Pending = () => (
 	<View style={styles.content}>
 		<Text style={styles.contentText}>Second</Text>
 	</View>
 );
-const ThirdRoute = () => (
+const Ready = () => (
 	<View style={styles.content}>
 		<Text style={styles.contentText}>Third</Text>
 	</View>
 );
-const FourthRoute = () => (
+const Completed = () => (
 	<View style={styles.content}>
 		<Text style={styles.contentText}>Fourth</Text>
 	</View>
 );
 
 const renderScene = SceneMap({
-	newOrder: FirstRoute,
-	pending: SecondRoute,
-	ready: ThirdRoute,
-	completed: FourthRoute,
+	newOrder: NewOrder,
+	pending: Pending,
+	ready: Ready,
+	completed: Completed,
 });
 
 const NewOrderScreen = () => {
 	const layout = useWindowDimensions();
-
+	const [activeIndex, setActiveIndex] = useState(0);
 	const [index, setIndex] = React.useState(0);
 	const [routes] = React.useState([
 		{ key: "newOrder", title: "New Order" },
@@ -57,50 +46,87 @@ const NewOrderScreen = () => {
 		{ key: "completed", title: "completed" },
 	]);
 
-	const renderTabBar = (props) => {
-		const inputRange = props.navigationState.routes.map((x, i) => i);
+	// const renderTabBar = (props) => {
+	// 	const inputRange = props.navigationState.routes.map((x, i) => i);
 
-		return (
-			<View style={styles.tabBar}>
-				{props.navigationState.routes.map((route, i) => {
-					const opacity = props.position.interpolate({
-						inputRange,
-						outputRange: inputRange.map((inputIndex) =>
-							inputIndex === i ? 1 : 0.5
-						),
-					});
+	// 	return (
+	// 		<View style={styles.tabBar}>
+	// 			{props.navigationState.routes.map((route, i) => {
+	// 				const opacity = props.position.interpolate({
+	// 					inputRange,
+	// 					outputRange: inputRange.map((inputIndex) =>
+	// 						inputIndex === i ? 1 : 0.5
+	// 					),
+	// 				});
+	// 				const borderColor = props.position.interpolate({
+	// 					inputRange,
+	// 					outputRange: inputRange.map((inputIndex) =>
+	// 						inputIndex === i ? "black" : "white"
+	// 					),
+	// 				});
 
-					return (
-						<TouchableOpacity
-							style={styles.tabItem}
-							onPress={() => setIndex(i)}>
-							<Animated.Text
-								style={{
-									opacity,
-									fontSize: 16,
-									textTransform: "capitalize",
-									// backgroundColor,
-								}}>
-								{route.title}
-							</Animated.Text>
-						</TouchableOpacity>
-					);
-				})}
-			</View>
-		);
-	};
+	// 				return (
+	// 					<TouchableOpacity
+	// 						style={{ ...styles.tabItem }}
+	// 						onPress={() => setIndex(i)}>
+	// 						<Animated.Text
+	// 							style={{
+	// 								opacity,
+	// 								fontSize: 16,
+	// 								textTransform: "capitalize",
+	// 								padding: 10,
+	// 								minWidth: width / 4,
+	// 								textAlign: "center",
+
+	// 								borderBottomWidth: 3,
+	// 								borderColor,
+	// 							}}>
+	// 							{route.title}
+	// 						</Animated.Text>
+	// 					</TouchableOpacity>
+	// 				);
+	// 			})}
+	// 		</View>
+	// 	);
+	// };
 
 	return (
 		<SafeAreaView
 			style={{
 				flex: 1,
+				// marginTop: -10,
 			}}>
 			<TabView
 				navigationState={{ index, routes }}
 				renderScene={renderScene}
 				onIndexChange={setIndex}
 				initialLayout={{ width: layout.width }}
-				renderTabBar={renderTabBar}
+				// renderTabBar={renderTabBar}
+
+				renderTabBar={(props) => (
+					<TabBar
+						{...props}
+						indicatorStyle={{ backgroundColor: primaryColor }}
+						style={{
+							backgroundColor: "white",
+							paddingHorizontal: 0,
+							marginHorizontal: 0,
+							margin: 0,
+						}}
+						renderLabel={({ route, color, focused }) => (
+							<Text
+								style={{
+									color: focused ? primaryColor : "black",
+									margin: 0,
+									padding: 0,
+									fontSize: 15,
+									textTransform: "capitalize",
+								}}>
+								{route.title}
+							</Text>
+						)}
+					/>
+				)} // <-- add this line
 			/>
 		</SafeAreaView>
 	);
@@ -116,12 +142,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 	},
 	tabItem: {
-		flex: 1,
 		alignItems: "center",
-		padding: 16,
-		paddingHorizontal: 4,
-		// backgroundColor: "orange",
-		marginHorizontal: 5,
 	},
 
 	text: {
@@ -154,9 +175,10 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		padding: 20,
-		backgroundColor: activeBg,
+		backgroundColor: "white",
+		flex: 1,
 	},
 	contentText: {
-		color: activeText,
+		color: "black",
 	},
 });

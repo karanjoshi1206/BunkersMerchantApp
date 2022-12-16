@@ -32,8 +32,8 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-const TabScreens = () => {
-	return <Tabs />;
+const TabScreens = ({ navigation }) => {
+	return <Tabs navigation={navigation} />;
 };
 
 const RootStack = ({ isLoggedIn }) => {
