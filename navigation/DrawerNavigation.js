@@ -80,7 +80,8 @@ const CustomDrawer = ({ props, navigation }) => {
 					alignItems: "center",
 				}}>
 				<Switch
-					trackColor={{ false: "#767577", true: "#81b0ff" }}
+					// trackColor={{ false: "#767577", true: "#81b0ff" }}
+					trackColor={{ false: "#767577", true: secondaryColor }}
 					thumbColor={isCanteenOpen ? primaryColor : "#f4f3f4"}
 					ios_backgroundColor='#3e3e3e'
 					onValueChange={toggleSwitch}
@@ -131,8 +132,8 @@ const DrawerNavigator = ({ navigation }) => (
 	<Drawer.Navigator
 		screenOptions={{
 			drawerLabelStyle: { marginLeft: -10, marginVertical: 5 },
-			// drawerActiveBackgroundColor: secondaryColor,
-			// drawerActiveTintColor: "white",
+			drawerActiveBackgroundColor: secondaryColor,
+			drawerActiveTintColor: "white",
 		}}
 		drawerContent={(props) => (
 			<CustomDrawer props={props} navigation={navigation} />
@@ -164,6 +165,8 @@ const DrawerNavigator = ({ navigation }) => (
 				drawerIcon: ({ color }) => (
 					<AntDesign name='qrcode' size={22} color={color} />
 				),
+				// headerStyle: { backgroundColor: secondaryColor },
+				// headerTitleStyle: { color: primaryColor },
 				// headerShown: false,
 			}}
 		/>

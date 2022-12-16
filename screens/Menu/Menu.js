@@ -5,6 +5,7 @@ import {
 	Pressable,
 	FlatList,
 	View,
+	RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import data from "./menudata";
@@ -17,6 +18,14 @@ const Menu = () => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [menuData, setMenuData] = useState([]);
 	const [refresh, setRefresh] = useState(false);
+	const wait = (timeout) => {
+		return new Promise((resolve) => setTimeout(resolve, timeout));
+	};
+
+	const onRefresh = React.useCallback(() => {
+		setRefresh(true);
+		wait(2000).then(() => setRefresh(false));
+	}, []);
 	useEffect(() => {
 		setMenuData(
 			data.sort((a, b) =>
@@ -43,6 +52,9 @@ const Menu = () => {
 				/>
 			)}
 			<FlatList
+				refreshControl={
+					<RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+				}
 				data={menuData}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => (

@@ -49,11 +49,11 @@ const Tabs = ({ navigation }) => {
 							<AntDesign
 								name='home'
 								size={24}
-								color={focused ? "black" : "lightgrey"}
+								color={focused ? primaryColor : "lightgrey"}
 							/>
 							<Text
 								style={{
-									color: focused ? "black" : "grey",
+									color: focused ? primaryColor : "grey",
 								}}>
 								Home
 							</Text>
@@ -74,16 +74,18 @@ const Tabs = ({ navigation }) => {
 							<Ionicons
 								name='ios-restaurant-outline'
 								size={24}
-								color={focused ? "black" : "lightgrey"}
+								color={focused ? primaryColor : "lightgrey"}
 							/>
 							<Text
 								style={{
-									color: focused ? "black" : "grey",
+									color: focused ? primaryColor : "grey",
 								}}>
 								Menu
 							</Text>
 						</View>
 					),
+					headerShadowVisible: true,
+					headerStyle: { elevation: 4, shadowOpacity: 2, shadowColor: "black" },
 				}}
 			/>
 			<Tab.Screen
@@ -99,11 +101,11 @@ const Tabs = ({ navigation }) => {
 							<Ionicons
 								name='information-circle-outline'
 								size={24}
-								color={focused ? "black" : "lightgrey"}
+								color={focused ? primaryColor : "lightgrey"}
 							/>
 							<Text
 								style={{
-									color: focused ? "black" : "grey",
+									color: focused ? primaryColor : "grey",
 								}}>
 								Insights
 							</Text>

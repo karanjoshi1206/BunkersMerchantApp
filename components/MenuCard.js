@@ -28,16 +28,15 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 		<View
 			style={{
 				...styles.menuCard,
-				borderColor: inStock ? "lightgreen" : "red",
-				borderBottomWidth: 5,
+				borderTopColor: inStock ? secondaryColor : "black",
 			}}
 			key={menu.id}>
 			<View
 				style={{
 					...styles.flex,
-					marginBottom: 20,
+					marginBottom: 10,
 					borderBottomColor: secondaryColor,
-					borderBottomWidth: 3,
+					borderBottomWidth: 2,
 				}}>
 				<Text style={styles.title}>{menu.itemName}</Text>
 				<View
@@ -48,15 +47,16 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 					}}>
 					<Text
 						style={{
-							fontSize: 16,
-							marginRight: 25,
+							fontSize: 14,
+							marginRight: 20,
+							fontWeight: "bold",
 						}}>
-						In Stock
+						{inStock ? "In Stock" : "Out of stock"}
 					</Text>
 					<Switch
 						trackColor={{ false: "#767577", true: "#81b0ff" }}
 						thumbColor={inStock ? primaryColor : "#f4f3f4"}
-						ios_backgroundColor='#3e3e3e'
+						ios_backgroundColor={primaryColor}
 						onValueChange={toggleSwitch}
 						value={inStock}
 						style={{
@@ -163,20 +163,27 @@ export default MenuCard;
 
 const styles = StyleSheet.create({
 	menuCard: {
-		backgroundColor: "white",
-		marginVertical: 20,
+		// backgroundColor: "white",
+		// marginVertical: 20,
 		padding: 20,
-		marginTop: 5,
+		// marginTop: 5,
 		borderRadius: 10,
+		borderWidth: 1,
+		borderTopWidth: 10,
+		minHeight: 200,
+		elevation: 5,
+		backgroundColor: "white",
+		borderColor: secondaryColor,
+		marginBottom: 14,
 	},
 	title: {
-		fontSize: 20,
+		fontSize: 16,
 		textTransform: "capitalize",
 		fontWeight: "600",
 		marginBottom: 10,
 	},
 	subTitle: {
-		fontSize: 18,
+		fontSize: 14,
 	},
 	flex: {
 		display: "flex",
