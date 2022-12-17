@@ -56,11 +56,11 @@ const MenuItem = ({
 			/>
 
 			{/* *************PORTION SECTION LIST START************* */}
-			{portions.length > 0 && (
+			{portions?.length > 0 && (
 				<Text style={styles.portionHeadline}>Portions</Text>
 			)}
 			<ScrollView>
-				{portions.map((elem) => {
+				{portions?.map((elem) => {
 					return (
 						<View style={styles.menuItemCard}>
 							<View
@@ -116,7 +116,7 @@ const MenuItem = ({
 												{
 													text: "Yes",
 													onPress: () => {
-														const newPortion = portions.filter(
+														const newPortion = portions?.filter(
 															(portion) => portion !== elem
 														);
 														setPortions(newPortion);

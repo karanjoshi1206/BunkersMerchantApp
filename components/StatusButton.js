@@ -1,8 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { brown, green, orange } from "../utils/CONSTANTS";
+import {
+	brown,
+	green,
+	orange,
+	primaryColor,
+	red,
+	secondaryColor,
+} from "../utils/CONSTANTS";
 
-const StatusButton = ({ status = 0 }) => {
+const StatusButton = ({ status = "pending" }) => {
 	return (
 		<View
 			style={{
@@ -28,18 +35,16 @@ export default StatusButton;
 const styles = StyleSheet.create({});
 const BACKGROUND_COLOR = (status) => {
 	switch (status) {
-		case 0:
-			return brown;
-		case 1:
-			return brown;
-		case 2:
-			return orange;
-		case 3:
+		case "pending":
+			return "blue";
+		case "completed":
 			return green;
-		case 4:
-			return green;
+		case "ready":
+			return primaryColor;
+		case "cancelled":
+
 		default:
-			return brown;
+			return secondaryColor;
 	}
 };
 const STATUS_TEXT = (status) => {

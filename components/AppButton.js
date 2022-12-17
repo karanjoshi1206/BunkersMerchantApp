@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import LottieView from "lottie-react-native";
+import { primaryColor } from "../utils/CONSTANTS";
 
 const AppButton = ({
 	children,
@@ -42,7 +43,8 @@ const AppButton = ({
 						backgroundColor: disabled
 							? "lightgrey"
 							: solid
-							? "#256FEF"
+							? // ? "#256FEF"
+							  primaryColor
 							: "transparent",
 						borderColor: disabled
 							? "lightgrey"
@@ -50,7 +52,8 @@ const AppButton = ({
 							? "transparent"
 							: danger
 							? "crimson"
-							: "#256FEF",
+							: // : "#256FEF",
+							  primaryColor,
 					}}>
 					<Text
 						style={{
@@ -61,7 +64,8 @@ const AppButton = ({
 								? "white"
 								: danger
 								? "crimson"
-								: "#256FEF",
+								: // : "#256FEF",
+								  primaryColor,
 						}}>
 						{children}
 					</Text>
@@ -75,7 +79,7 @@ export default AppButton;
 
 const styles = StyleSheet.create({
 	button: {
-		backgroundColor: "#256FEF",
+		backgroundColor: primaryColor,
 		padding: 15,
 		borderRadius: 10,
 		borderColor: "white",

@@ -1,100 +1,122 @@
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
-import React, { useState } from "react";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+// REACT NATIVE AND REACT IMPORTS
+import { Text, useWindowDimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+
+//LIBRARIES
+import { TabView, TabBar } from "react-native-tab-view";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { primaryColor, secondaryColor, width } from "../../utils/CONSTANTS";
-import NewOrder from "../../components/OrdersCategoryScreens/NewOrder";
 
-const headerBg = "#282f3f";
+//CONSTANTS
+import { primaryColor } from "../../utils/CONSTANTS";
 
-// const NewOrder = () => (
-// 	<View style={styles.content}>
-// 		<Text style={styles.contentText}>First</Text>
-// 	</View>
-// );
-const Pending = () => (
-	<View style={styles.content}>
-		<Text style={styles.contentText}>Second</Text>
-	</View>
-);
-const Ready = () => (
-	<View style={styles.content}>
-		<Text style={styles.contentText}>Third</Text>
-	</View>
-);
-const Completed = () => (
-	<View style={styles.content}>
-		<Text style={styles.contentText}>Fourth</Text>
-	</View>
-);
+//API
+import getAllOrders from "../../api/Orders/getAllOrders";
 
-const renderScene = SceneMap({
-	newOrder: NewOrder,
-	pending: Pending,
-	ready: Ready,
-	completed: Completed,
-});
+//COMPONENTS
+import AcceptedOrder from "../../components/OrdersCategoryScreens/AcceptedOrder";
+import InProgress from "../../components/OrdersCategoryScreens/InProgress";
+import ReadyOrder from "../../components/OrdersCategoryScreens/ReadyOrder";
+import CompletedOrder from "../../components/OrdersCategoryScreens/CompletedOrder";
 
 const NewOrderScreen = () => {
-	const layout = useWindowDimensions();
-	const [activeIndex, setActiveIndex] = useState(0);
-	const [index, setIndex] = React.useState(0);
-	const [routes] = React.useState([
-		{ key: "newOrder", title: "New Order" },
-		{ key: "pending", title: "Pending" },
+	//STATES
+	const [orderData, setOrderData] = useState([]);
+	const [refresh, setRefresh] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [index, setIndex] = useState(0);
+	const [routes] = useState([
+		{ key: "newOrder", title: "Accepted" },
+		{ key: "inProgress", title: "In Progress" },
 		{ key: "ready", title: "Ready" },
 		{ key: "completed", title: "completed" },
 	]);
 
-	// const renderTabBar = (props) => {
-	// 	const inputRange = props.navigationState.routes.map((x, i) => i);
+	//TAB VIEW STUFFS
+	const layout = useWindowDimensions();
 
-	// 	return (
-	// 		<View style={styles.tabBar}>
-	// 			{props.navigationState.routes.map((route, i) => {
-	// 				const opacity = props.position.interpolate({
-	// 					inputRange,
-	// 					outputRange: inputRange.map((inputIndex) =>
-	// 						inputIndex === i ? 1 : 0.5
-	// 					),
-	// 				});
-	// 				const borderColor = props.position.interpolate({
-	// 					inputRange,
-	// 					outputRange: inputRange.map((inputIndex) =>
-	// 						inputIndex === i ? "black" : "white"
-	// 					),
-	// 				});
+	//All the order data is called at onced
+	const getOrderData = async () => {
+		setLoading(true);
+		const data = await getAllOrders();
+		if (data.status == 200) {
+			setOrderData(data.data);
 
-	// 				return (
-	// 					<TouchableOpacity
-	// 						style={{ ...styles.tabItem }}
-	// 						onPress={() => setIndex(i)}>
-	// 						<Animated.Text
-	// 							style={{
-	// 								opacity,
-	// 								fontSize: 16,
-	// 								textTransform: "capitalize",
-	// 								padding: 10,
-	// 								minWidth: width / 4,
-	// 								textAlign: "center",
+			setRefresh(false);
+		} else {
+			setOrderData([]);
+			setRefresh(false);
+		}
+		setLoading(false);
+	};
 
-	// 								borderBottomWidth: 3,
-	// 								borderColor,
-	// 							}}>
-	// 							{route.title}
-	// 						</Animated.Text>
-	// 					</TouchableOpacity>
-	// 				);
-	// 			})}
-	// 		</View>
-	// 	);
-	// };
+	//FILTERING THE DATA ACCORDING TO STATUS
+	const acceptedOrderData = orderData.filter(
+		(order) => order.status == "accepted"
+	);
+	const completedOrderData = orderData.filter(
+		(order) => order.status == "completed"
+	);
+	const inProgressOrderData = orderData.filter(
+		(order) => order.status == "inProgress"
+	);
+	const readyOrderData = orderData.filter((order) => order.status == "ready");
+
+	//Function to render tab view screens
+	const renderScene = ({ route }) => {
+		switch (route.key) {
+			case "newOrder":
+				return (
+					<AcceptedOrder
+						orderData={acceptedOrderData}
+						refresh={refresh}
+						setRefresh={setRefresh}
+						loading={loading}
+						setLoading={setLoading}
+					/>
+				);
+			case "inProgress":
+				return (
+					<InProgress
+						orderData={inProgressOrderData}
+						refresh={refresh}
+						setRefresh={setRefresh}
+						loading={loading}
+						setLoading={setLoading}
+					/>
+				);
+			case "ready":
+				return (
+					<ReadyOrder
+						orderData={readyOrderData}
+						refresh={refresh}
+						setRefresh={setRefresh}
+						loading={loading}
+						setLoading={setLoading}
+					/>
+				);
+			case "completed":
+				return (
+					<CompletedOrder
+						orderData={completedOrderData}
+						refresh={refresh}
+						setRefresh={setRefresh}
+						loading={loading}
+						setLoading={setLoading}
+					/>
+				);
+			default:
+				return null;
+		}
+	};
+
+	useEffect(() => {
+		getOrderData();
+	}, [refresh]);
 
 	return (
 		<SafeAreaView
 			style={{
 				flex: 1,
-				// marginTop: -10,
 			}}>
 			<TabView
 				navigationState={{ index, routes }}
@@ -121,64 +143,16 @@ const NewOrderScreen = () => {
 									padding: 0,
 									fontSize: 15,
 									textTransform: "capitalize",
+									textAlign: "center",
 								}}>
 								{route.title}
 							</Text>
 						)}
 					/>
-				)} // <-- add this line
+				)}
 			/>
 		</SafeAreaView>
 	);
 };
 
 export default NewOrderScreen;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	tabBar: {
-		flexDirection: "row",
-	},
-	tabItem: {
-		alignItems: "center",
-	},
-
-	text: {
-		lineHeight: 20,
-		paddingTop: 9,
-		paddingLeft: 30,
-		paddingRight: 30,
-		paddingBottom: 9,
-		textAlign: "center",
-	},
-	tabStyle: {
-		opacity: 1,
-		width: "auto",
-		marginRight: 2,
-		paddingTop: 0,
-		paddingLeft: 0,
-		paddingRight: 0,
-		paddingBottom: 0,
-		backgroundColor: headerBg,
-	},
-	tab: {
-		backgroundColor: headerBg,
-		paddingRight: 5,
-		paddingLeft: 20,
-		paddingTop: 20,
-		marginTop: 2,
-	},
-	indicator: {
-		backgroundColor: "none",
-	},
-	content: {
-		padding: 20,
-		backgroundColor: "white",
-		flex: 1,
-	},
-	contentText: {
-		color: "black",
-	},
-});

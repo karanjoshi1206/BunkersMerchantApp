@@ -5,6 +5,7 @@ import {
 	Switch,
 	TouchableOpacity,
 	Alert,
+	Image,
 } from "react-native";
 import React, { useState } from "react";
 import { primaryColor, red, secondaryColor } from "../utils/CONSTANTS";
@@ -14,7 +15,7 @@ import MenuItem from "../screens/Menu/MenuItem";
 
 const MenuCard = ({ menu, refresh, setRefresh }) => {
 	const [modalVisible, setModalVisible] = useState(false);
-	const [inStock, setInStock] = useState(menu?.availableOnStock ? true : false);
+	const [inStock, setInStock] = useState(menu?.availability ? true : false);
 	const toggleSwitch = () => {
 		setInStock((previousState) => !previousState);
 		setRefresh((previousState) => !previousState);
@@ -30,7 +31,7 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 				...styles.menuCard,
 				borderTopColor: inStock ? secondaryColor : "black",
 			}}
-			key={menu.id}>
+			key={menu._id}>
 			<View
 				style={{
 					...styles.flex,
@@ -38,7 +39,25 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 					borderBottomColor: secondaryColor,
 					borderBottomWidth: 2,
 				}}>
-				<Text style={styles.title}>{menu.itemName}</Text>
+				<View
+					style={{
+						flexDirection: "row",
+						alignItems: "flex-end",
+						// width: 100,
+						maxWidth: 150,
+					}}>
+					<Text style={styles.title}>{menu.name}</Text>
+					<Image
+						source={{ uri: menu.Image }}
+						style={{
+							height: 40,
+							width: 40,
+							borderRadius: 20,
+							resizeMode: "contain",
+							marginLeft: 5,
+						}}
+					/>
+				</View>
 				<View
 					style={{
 						justifyContent: "space-between",
@@ -68,7 +87,7 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 					/>
 				</View>
 			</View>
-			{menu?.portions?.map((elem) => {
+			{menu?.portions?.map((elem, idx) => {
 				return (
 					<View
 						style={{
@@ -78,7 +97,7 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 							borderBottomWidth: 1,
 							paddingVertical: 5,
 						}}
-						key={elem.portionName}>
+						key={idx}>
 						<Text style={styles.subTitle}>{elem.portionName}</Text>
 						<Text style={styles.subTitle}>₹ {elem.portionPrice}</Text>
 					</View>
@@ -170,7 +189,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		borderWidth: 1,
 		borderTopWidth: 10,
-		minHeight: 200,
+		// minHeight: 200,
 		elevation: 5,
 		backgroundColor: "white",
 		borderColor: secondaryColor,

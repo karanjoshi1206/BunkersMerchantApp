@@ -3,12 +3,12 @@ import { brown, green, orange, red } from "../../utils/CONSTANTS";
 const statusData = [
 	{
 		statusId: 0,
-		statusTitle: "New Order",
+		statusTitle: "Accepted",
 		backgroundColor: red,
 	},
 	{
 		statusId: 1,
-		statusTitle: "Pending",
+		statusTitle: "In Progress",
 		backgroundColor: brown,
 	},
 

@@ -1,4 +1,4 @@
-const getAllOrders = async () => {
+const getAllMenuItems = async () => {
 	let requestOptions = {
 		method: "GET",
 		redirect: "follow",
@@ -6,7 +6,7 @@ const getAllOrders = async () => {
 
 	try {
 		const response = await fetch(
-			"https://cute-lime-macaw-toga.cyclic.app/orders",
+			"https://cute-lime-macaw-toga.cyclic.app/products",
 			requestOptions
 		);
 
@@ -17,4 +17,4 @@ const getAllOrders = async () => {
 	}
 };
 
-export default getAllOrders;
+export default getAllMenuItems;

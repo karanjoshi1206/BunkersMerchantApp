@@ -1,74 +1,97 @@
-import {
-	Alert,
-	StyleSheet,
-	Text,
-	Pressable,
-	FlatList,
-	View,
-	RefreshControl,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import data from "./menudata";
+import { StyleSheet, FlatList, View, RefreshControl } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
 import MenuCard from "../../components/MenuCard";
 import FloatingButton from "../../components/FloatingButton";
-import ModalComponent from "../../components/ModalComponent";
-import InputField from "../../components/InputField";
+import Loading from "../Loading/Loading";
 import MenuItem from "./MenuItem";
+import getAllMenuItems from "../../api/Menu/getAllMenuItems";
+import NoData from "../../components/NoData";
 const Menu = () => {
+	const [menu, setMenu] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const [modalVisible, setModalVisible] = useState(false);
-	const [menuData, setMenuData] = useState([]);
 	const [refresh, setRefresh] = useState(false);
-	const wait = (timeout) => {
-		return new Promise((resolve) => setTimeout(resolve, timeout));
-	};
 
+	const getMenuItems = async () => {
+		console.log("runs");
+		setLoading(true);
+		const data = await getAllMenuItems();
+		if (data.status == 200) {
+			setMenu(data.data);
+			setRefresh(false);
+		} else {
+			setMenu([]);
+			setRefresh(false);
+		}
+		setLoading(false);
+	};
 	const onRefresh = React.useCallback(() => {
 		setRefresh(true);
-		wait(2000).then(() => setRefresh(false));
 	}, []);
-	useEffect(() => {
-		setMenuData(
-			data.sort((a, b) =>
-				a.availableOnStock == b.availableOnStock
-					? 0
-					: a.availableOnStock
-					? -1
-					: 1
-			)
-		);
+
+	useMemo(() => {
+		getMenuItems();
 	}, [refresh]);
+
+	// useEffect(() => {
+	// 	if (refresh == false) return;
+	// 	getMenuItems();
+	// setMenuData(
+	// 	data.sort((a, b) =>
+	// 		a.availableOnStock == b.availableOnStock
+	// 			? 0
+	// 			: a.availableOnStock
+	// 			? -1
+	// 			: 1
+	// 	)
+	// );
+	// }, [refresh]);
 	return (
-		<View
-			style={{
-				padding: 10,
-				paddingBottom: 60,
-				position: "relative",
-				backgroundColor: "white",
-			}}>
-			{modalVisible && (
-				<MenuItem
-					modalVisible={modalVisible}
-					setModalVisible={setModalVisible}
-				/>
+		<>
+			{loading ? (
+				<Loading />
+			) : (
+				<View
+					style={{
+						padding: 10,
+						paddingBottom: 60,
+						position: "relative",
+						backgroundColor: "white",
+						flex: 1,
+					}}>
+					{modalVisible && (
+						<MenuItem
+							modalVisible={modalVisible}
+							setModalVisible={setModalVisible}
+						/>
+					)}
+
+					{menu.length > 0 ? (
+						<FlatList
+							refreshControl={
+								<RefreshControl refreshing={refresh} onRefresh={onRefresh} />
+							}
+							data={menu}
+							keyExtractor={(item) => item.name}
+							renderItem={({ item }) => (
+								<MenuCard
+									menu={item}
+									refresh={refresh}
+									setRefresh={setRefresh}
+									modalVisible={modalVisible}
+									setModalVisible={setModalVisible}
+								/>
+							)}
+						/>
+					) : (
+						<NoData />
+					)}
+					<FloatingButton onPress={() => setModalVisible(true)}>
+						+
+					</FloatingButton>
+				</View>
 			)}
-			<FlatList
-				refreshControl={
-					<RefreshControl refreshing={refresh} onRefresh={onRefresh} />
-				}
-				data={menuData}
-				keyExtractor={(item) => item.id}
-				renderItem={({ item }) => (
-					<MenuCard
-						menu={item}
-						refresh={refresh}
-						setRefresh={setRefresh}
-						modalVisible={modalVisible}
-						setModalVisible={setModalVisible}
-					/>
-				)}
-			/>
-			<FloatingButton onPress={() => setModalVisible(true)}>+</FloatingButton>
-		</View>
+		</>
 	);
 };
 

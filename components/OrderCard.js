@@ -98,7 +98,6 @@ const ToastCard = ({ customerNumber, navigation }) => {
 };
 
 const OrderCard = ({ order, navigation }) => {
-	console.log("order is ", order);
 	const [showToast, setShowToast] = useState(false);
 	const [timeTaken, setTimeTaken] = useState(10);
 	return (
