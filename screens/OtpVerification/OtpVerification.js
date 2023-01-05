@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from "react";
+import React, { createRef, useContext, useEffect, useState } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 
 //UTILS
@@ -14,8 +14,11 @@ import AppButton from "../../components/AppButton";
 //LIBRARIES
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
+import { UserContext } from "../../context/userContext";
 
 const OtpVerification = ({ route, navigation }) => {
+	const { state, dispatch } = useContext(UserContext);
+
 	const { phoneNumber, verificationId } = route.params;
 	const [loading, setLoading] = useState(false);
 	const [pin1, setPin1] = useState("");
@@ -60,8 +63,8 @@ const OtpVerification = ({ route, navigation }) => {
 
 	const storeData = async () => {
 		try {
+			dispatch({ type: "isLoggedIn", payload: true });
 			await AsyncStorage.setItem("loggedIn", "true");
-			navigation.navigate("Merchant");
 		} catch (e) {
 			console.log("local storage error at OTP verification sceen--==>> ", e);
 		}
@@ -73,6 +76,7 @@ const OtpVerification = ({ route, navigation }) => {
 				justifyContent: "center",
 				alignItems: "center",
 				minHeight: height - 100,
+				backgroundColor: "white",
 			}}>
 			<ParagraphText>OTP was sent to {phoneNumber} </ParagraphText>
 

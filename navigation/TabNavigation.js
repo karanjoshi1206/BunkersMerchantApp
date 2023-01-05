@@ -46,8 +46,13 @@ const Tabs = ({ navigation }) => {
 							style={{
 								alignItems: "center",
 							}}>
-							<AntDesign
+							{/* <AntDesign
 								name='home'
+								size={24}
+								color={focused ? primaryColor : "lightgrey"}
+							/> */}
+							<Ionicons
+								name='fast-food-outline'
 								size={24}
 								color={focused ? primaryColor : "lightgrey"}
 							/>
@@ -55,7 +60,7 @@ const Tabs = ({ navigation }) => {
 								style={{
 									color: focused ? primaryColor : "grey",
 								}}>
-								Home
+								Orders
 							</Text>
 						</View>
 					),

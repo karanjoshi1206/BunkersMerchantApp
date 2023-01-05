@@ -21,11 +21,6 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 		setRefresh((previousState) => !previousState);
 	};
 	return (
-		// <NeuMorphismView
-		// 	borderless={true}
-		// 	style={{
-		// 		marginBottom: 10,
-		// 	}}>
 		<View
 			style={{
 				...styles.menuCard,
@@ -104,7 +99,12 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 				);
 			})}
 
-			<View style={{ ...styles.flex, marginBottom: 0, marginTop: 10 }}>
+			<View
+				style={{
+					...styles.flex,
+					marginBottom: 0,
+					marginTop: 10,
+				}}>
 				<TouchableOpacity
 					onPress={() => {
 						setModalVisible(true);
@@ -174,7 +174,6 @@ const MenuCard = ({ menu, refresh, setRefresh }) => {
 				<MenuItem setModalVisible={setModalVisible} mode='edit' data={menu} />
 			)}
 		</View>
-		// </NeuMorphismView>
 	);
 };
 
@@ -182,19 +181,18 @@ export default MenuCard;
 
 const styles = StyleSheet.create({
 	menuCard: {
-		// backgroundColor: "white",
-		// marginVertical: 20,
 		padding: 20,
-		// marginTop: 5,
 		borderRadius: 10,
 		borderWidth: 1,
-		borderTopWidth: 10,
-		// minHeight: 200,
+		borderTopWidth: 5,
 		elevation: 5,
 		backgroundColor: "white",
-		borderColor: secondaryColor,
+		borderColor: "lightgrey",
 		marginBottom: 14,
+		paddingVertical: 25,
+		overflow: "hidden",
 	},
+
 	title: {
 		fontSize: 16,
 		textTransform: "capitalize",

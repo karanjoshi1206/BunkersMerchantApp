@@ -23,7 +23,6 @@ function App() {
 			setLoading(true);
 
 			const value = await AsyncStorage.getItem("loggedIn");
-			console.log("value is ", value);
 			if (value == "true") {
 				dispatch({ type: "isLoggedIn", payload: true });
 
